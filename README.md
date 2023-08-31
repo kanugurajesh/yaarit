@@ -1,9 +1,12 @@
-# GITHUB Repo for YAAR!T
+# Github Repo for Yaarit - Website
 
 <br>
-Find code for both frontend and backend here! - Website
+Find code for both frontend and backend here! 
 <br>
-A project under GDCS MVSR
+<br>
+A project under GDSC MVSR
+<br>
+<br>
 <br>
 <ul>
     <li>Project lead - Karthik Laxmishetty</li>
