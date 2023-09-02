@@ -3,3 +3,4 @@
 <br>
 Work On your assigned component
 <br>
+This is a vite app - "npm run dev" to run the app
