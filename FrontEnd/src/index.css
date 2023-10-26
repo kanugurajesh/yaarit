@@ -3,3 +3,117 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "DM Sans", sans-serif;
+  }
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+.floats-vertical {
+  animation: floating 1s ease infinite alternate-reverse both;
+}
+
+.credentials-bg {
+  background-image: url("./assets/credentials.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.blog-bg {
+  background: linear-gradient(90deg, #7bbfff 0%, #6076ff 49.48%, #7b6eff 100%);
+}
+
+.box-shadow-quote {
+  box-shadow: -3px 0px 30px #ced5fa;
+}
+
+.credentials-input {
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  height: 55px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 10px;
+}
+
+.description-bg {
+  background-image: url("./assets/Group51.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.credentials-button {
+  background-image: url("./assets/Rectangle.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 10px;
+  height: 55px;
+}
+
+.credentials-button-disabled {
+  background-color: grey;
+  border-radius: 10px;
+  height: 55px;
+}
+
+#forgot-password,
+#view-details {
+  background: linear-gradient(90deg, #7bbfff 0%, #6076ff 49.48%, #7b6eff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.popup {
+  position: absolute;
+  opacity: 0;
+  bottom: -35px;
+  right: 10px;
+  color: white;
+  padding: 10px 10px 10px 10px;
+  background: linear-gradient(90deg, #7bbfff 0%, #6076ff 49.48%, #7b6eff 100%);
+  border-radius: 20px;
+  border-top-right-radius: 0px;
+  transform: scale(0, 0);
+  transition: opacity 0.3s, transform 0.3s;
+  transform-origin: right top;
+}
+
+#view-details:hover + .popup {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
+.wrapping {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@layer utilities {
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  }
+}

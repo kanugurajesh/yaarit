@@ -10,6 +10,6 @@ A project under GDSC MVSR
 <br>
 <ul>
     <li>Project lead - Karthik Laxmishetty</li>
-    <li>Tech lead - Chiduruppala Pooja </li>
+    <li>Tech lead - Pooja Reddy Chiduruppala</li>
     <li>WebDev lead - Tarun Jakkula</li>
 </ul>
