@@ -1,10 +1,12 @@
 import UserSchema from "../models/user.js";
 
 const profileInfo = async (req, res) => {
+
     // get email from the req
     const { email } = req.body;
 
     try {
+
         const existingUser = await UserSchema.findOne({ _id: email });
         // get all the information of the user
         const response = {
