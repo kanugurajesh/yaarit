@@ -2,8 +2,6 @@ import { useMediaQuery } from "react-responsive";
 import Yaarit from "../assets/Yaarit.svg";
 import { useNavigate } from "react-router-dom";
 
-// Fonts
-
 function Description() {
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1215px)",
