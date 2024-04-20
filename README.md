@@ -1,11 +1,10 @@
 # Yaarit
 
-<br>
-A project under GDSC MVSR
+## A Project by GDSC
 
 <ul>
-    <li>Project lead - Karthik Laxmishetty</li>
-    <li>Tech lead - Pooja Reddy Chiduruppala</li>
-    <li>Frontend lead - Tarun Jakkula</li>
-    <li>Backend lead - Kanugu Rajesh</li>
+<li>Project lead - Karthik Laxmishetty</li>
+<li>Tech lead - Pooja Reddy Chiduruppala</li>
+<li>Frontend lead - Tarun Jakkula</li>
+<li>Backend lead - Kanugu Rajesh</li>
 </ul>
