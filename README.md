@@ -7,8 +7,6 @@
 ## A Project by MVSR GDSC
 
 <ul>
-<li>Project lead - Karthik Laxmishetty</li>
-<li>Tech lead - Pooja Reddy Chiduruppala</li>
-<li>Frontend lead - Tarun Jakkula</li>
-<li>Backend lead - Kanugu Rajesh</li>
+<li>Frontend - Tarun Jakkula</li>
+<li>Full Stack - Kanugu Rajesh</li>
 </ul>
