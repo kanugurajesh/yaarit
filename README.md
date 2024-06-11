@@ -4,8 +4,6 @@
 
 # Yaarit
 
-## A Project by MVSR GDSC
-
 <ul>
 <li>Frontend - Tarun Jakkula</li>
 <li>Full Stack - Kanugu Rajesh</li>
