@@ -6,10 +6,6 @@ import {
   blogupload,
 } from "../controllers/blogController.js";
 
-<<<<<<< HEAD
-// Router
-=======
->>>>>>> 8ca597076e89c4bf61b692bbf3fb6f0566d73299
 const blogsRouter = express.Router();
 
 blogsRouter.post("/blogsList", authM, bloglist);
