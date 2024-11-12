@@ -20,12 +20,21 @@
   }
 }
 
+img {
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
 .floats-vertical {
   animation: floating 1s ease infinite alternate-reverse both;
 }
 
 .credentials-bg {
-  background-image: url("./assets/credentials.svg");
+  background-image: url("./public/credentials.svg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -34,13 +43,19 @@
   background: linear-gradient(90deg, #7bbfff 0%, #6076ff 49.48%, #7b6eff 100%);
 }
 
+.cut-out {
+  background: linear-gradient(90deg, #7bbfff 0%, #6076ff 49.48%, #7b6eff 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
 .box-shadow-quote {
   box-shadow: -3px 0px 30px #ced5fa;
 }
 
 .credentials-input {
   border: 1px solid #d9d9d9;
-  border-radius: 10px;
+  border-radius: 5px;
   height: 55px;
   padding-left: 15px;
   padding-right: 15px;
@@ -48,27 +63,24 @@
 }
 
 .description-bg {
-  background-image: url("./assets/Group51.svg");
+  background-image: url("./public/Group51.svg");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .credentials-button {
-  background-image: url("./assets/Rectangle.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 10px;
-  height: 55px;
+  background: linear-gradient(90deg, #5da9fa 0%, #6069fa 51.04%, #978afc 100%);
 }
 
 .credentials-button-disabled {
   background-color: grey;
-  border-radius: 10px;
+  border-radius: 5px;
   height: 55px;
 }
 
 #forgot-password,
-#view-details {
+#view-details,
+#profile-in {
   background: linear-gradient(90deg, #7bbfff 0%, #6076ff 49.48%, #7b6eff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import LoginLayout from "./LoginLoayout.jsx";
 import ForgotPass from "./ForgotPass.jsx";
 import Quote from "../Quote.jsx";
-import frame from "../assets/Frame.svg";
 import { useMediaQuery } from "react-responsive";
 
 function Login() {
@@ -15,9 +14,6 @@ function Login() {
   const [remember, setRemeber] = useState(false);
   const [successfulLogin, setSuccessfulLogin] = useState(0);
   const [forgotPass, setForgotPass] = useState(false);
-  const [passResetMessage, setPassResetMessage] = useState(false);
-  const [invalidEmailForResetMessage, setInvalidEmailForResetMessage] =
-    useState(false);
 
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1090px)",
@@ -27,15 +23,20 @@ function Login() {
     event.preventDefault();
     try {
       const response = await Axios.post(
-        "http://192.168.0.104:8000/users/signin",
+        process.env.IP + "/users/signin",
         {
           email: Email,
           password: Password,
-          AUTH_API_KEY: "AIyuhjerty9poiud9qwer4poijkhpoiubqXpkjm",
+          AUTH_API_KEY: process.env.AUTH_API_KEY,
+        },
+        {
+          timeout: 3000000,
         }
       );
       if (response.data.message !== "") {
-        setSuccessfulLogin(-2);
+        setSuccessfulLogin(-1);
+        setEmail("");
+        setPassword("");
       } else {
         const { token } = response.data;
         if (remember) localStorage.setItem("token", token);
@@ -46,8 +47,9 @@ function Login() {
         }, 2000);
       }
     } catch (error) {
-      alert(JSON.stringify(error));
-      setSuccessfulLogin(-1);
+      alert("Error Connecting to Server");
+      setEmail("");
+      setPassword("");
     }
   };
 
@@ -56,10 +58,16 @@ function Login() {
       const token = localStorage.getItem("token");
       if (token) {
         sessionStorage.setItem("token", token);
-        Axios.post("http://localhost:8000/users/autosignin", {
-          token: token,
-          AUTH_API_KEY: "AIyuhjerty9poiud9qwer4poijkhpoiubqXpkjm",
-        }).then((response) => {
+        Axios.post(
+          process.env.IP + "/users/autosignin",
+          {
+            token: token,
+            AUTH_API_KEY: process.env.AUTH_API_KEY,
+          },
+          {
+            timeout: 3000000,
+          }
+        ).then((response) => {
           if (response.data.email !== "") {
             navigate("/Home", { replace: true });
           }
@@ -81,14 +89,13 @@ function Login() {
   return (
     <>
       {Render && (
-        <div className={`grid ${isDesktopOrLaptop ? "grid-cols-2" : ""}`}>
+        <div
+          className={`grid shadow-xl h-screen rounded-xl ${
+            isDesktopOrLaptop ? "grid-cols-2" : ""
+          }`}
+        >
           {isDesktopOrLaptop && <Quote />}
-          <div
-            className={`grid place-content-center h-screen min-h-[500px] relative`}
-          >
-            {!isDesktopOrLaptop && (
-              <img src={frame} alt="" className="absolute top-0 left-0 -z-1" />
-            )}
+          <div className={`grid place-content-center h-screen relative`}>
             <div className="grid mx-[30px]">
               {forgotPass ? (
                 <ForgotPass setForgotPass={setForgotPass} />
@@ -103,6 +110,7 @@ function Login() {
                   successfulLogin={successfulLogin}
                   setForgotPass={setForgotPass}
                   authenticate={authenticate}
+                  navigate={navigate}
                 />
               )}
             </div>

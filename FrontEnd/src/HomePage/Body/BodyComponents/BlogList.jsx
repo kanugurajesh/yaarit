@@ -1,6 +1,7 @@
 import BlogPanel from "./BlogPanel";
-import LoadingCard from "./LoadingCard";
+import BlogLoadingCard from "./BlogLoadingCard";
 import { useNavigate } from "react-router-dom";
+import forwardIcon from "../../../public/arrow_forward_FILL0_wght400_GRAD0_opsz24.svg";
 
 export default function BlogList({
   blogs,
@@ -11,16 +12,8 @@ export default function BlogList({
 }) {
   const navigate = useNavigate();
   return (
-    <div className="mt-[70px]" ref={blogScroll}>
-      <div
-        className={`mt-[50px] flex flex-wrap items-center ${
-          isTablet
-            ? isDesktopOrLaptop
-              ? "justify-between"
-              : "justify-around"
-            : "justify-evenly"
-        }`}
-      >
+    <div className="mt-[100px] " ref={blogScroll}>
+      <div className={`mt-[50px] flex flex-wrap items-center justify-center`}>
         <span
           className={`font-[700] ${
             isTablet
@@ -33,24 +26,24 @@ export default function BlogList({
           Blogs
         </span>
         <button
-          className={`text-white ${
-            isTablet
-              ? isDesktopOrLaptop
-                ? "text-[20px] px-[50px]"
-                : "text-[20px] px-[40px]"
-              : "text-[18px] px-[23px]"
-          }  font-black tracking-wider credentials-button `}
           onClick={() => {
             navigate("/Home/BlogPage");
           }}
+          className={`${
+            isTablet
+              ? isDesktopOrLaptop
+                ? "w-[40px] h-[40px]"
+                : "w-[35px] h-[35px]"
+              : "w-[30px] h-[30px]"
+          }`}
         >
-          More
+          <img src={forwardIcon} alt="" className="w-full h-full" />
         </button>
       </div>
-      <div className="flex flex-wrap justify-around items-center ">
+      <div className="flex flex-col justify-evenly items-center my-[50px] gap-y-[40px] gap-x-[20px]">
         {renderNow ? (
           blogs.map((obj, index) => {
-            if (index < (isTablet ? (isDesktopOrLaptop ? 4 : 3) : 2))
+            if (index < (isTablet ? 3 : 2))
               return (
                 <div key={obj + index}>
                   <BlogPanel
@@ -63,22 +56,16 @@ export default function BlogList({
           })
         ) : (
           <>
-            <LoadingCard
+            <BlogLoadingCard
               isTablet={isTablet}
               isDesktopOrLaptop={isDesktopOrLaptop}
             />
-            <LoadingCard
+            <BlogLoadingCard
               isTablet={isTablet}
               isDesktopOrLaptop={isDesktopOrLaptop}
             />
             {isTablet && (
-              <LoadingCard
-                isTablet={isTablet}
-                isDesktopOrLaptop={isDesktopOrLaptop}
-              />
-            )}
-            {isDesktopOrLaptop && (
-              <LoadingCard
+              <BlogLoadingCard
                 isTablet={isTablet}
                 isDesktopOrLaptop={isDesktopOrLaptop}
               />

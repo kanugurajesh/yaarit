@@ -1,4 +1,4 @@
-import BackIcon from "../../assets/arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
+import BackIcon from "../../public/arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
@@ -69,7 +69,7 @@ export default function Blog() {
             )}
           </div>
           <div
-            className={`rounded-xl shadow-md border-[#dfe4ffff] bg-[#dfe4ff] backdrop-blur border-[1px] mx-[20px]  py-[50px] ${
+            className={`rounded-xl shadow-md bg-white mx-[20px] py-[50px] ${
               isTablet
                 ? isDesktopOrLaptop
                   ? "px-[150px] my-[30px]"

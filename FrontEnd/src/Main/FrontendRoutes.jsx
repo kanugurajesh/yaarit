@@ -7,8 +7,8 @@ import Blog from "../HomePage/Body/Blog.jsx";
 import BlogPage from "../HomePage/Body/BlogPage.jsx";
 import EventPage from "../HomePage/Body/EventPage.jsx";
 import ProtectedRoute from "../Description/ProtectedRoute.jsx";
-import { useEffect, useState } from "react";
-import Axios from "axios";
+import { useState } from "react";
+import ProfilePage from "../HomePage/Header/ProfilePage.jsx";
 
 export default function FrontendRoutes() {
   const [renderNow, setRenderNow] = useState(false);
@@ -26,6 +26,7 @@ export default function FrontendRoutes() {
         <Route path="/Register" element={<Register />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/Home/Blog/:id" element={<Blog />} />
+          <Route path="/Home/Profile" element={<ProfilePage />} />
           <Route
             path="/Home"
             element={

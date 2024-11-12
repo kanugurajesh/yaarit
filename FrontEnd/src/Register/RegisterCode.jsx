@@ -10,10 +10,13 @@ export default function RegisterCode({ Email, Password }) {
   const directHome = async () => {
     try {
       const response = await Axios.post(
-        "http://localhost:8000/register/verifyMail",
+        process.env.IP + "/register/verifyMail",
         {
           AUTH_PASSWORD: verifyCode,
-          AUTH_API_KEY: "AIyuhjerty9poiud9qwer4poijkhpoiubqXpkjm",
+          AUTH_API_KEY: process.env.AUTH_API_KEY,
+        },
+        {
+          timeout: 3000000,
         }
       );
       console.log(response);
@@ -22,7 +25,7 @@ export default function RegisterCode({ Email, Password }) {
   };
 
   return (
-    <>
+    <div className="flex flex-col">
       <span
         className={"text-[#15144B] text-[2.2em] font-black tracking-wider "}
       >
@@ -64,11 +67,21 @@ export default function RegisterCode({ Email, Password }) {
           type="submit"
           id="code"
           value="Verify"
-          className="text-white text-[1.5em] font-black tracking-wider credentials-button "
+          className="text-white text-[1.5em] font-black tracking-wider py-[10px] rounded-md credentials-button "
         ></input>
         <br />
-        <br />
       </form>
-    </>
+      <span className="text-center my-[10px]">
+        Already have an account?
+        <button
+          className="text-[#5258FF] font-black ml-[5px]"
+          onClick={() => {
+            navigate("/Login", { replace: true });
+          }}
+        >
+          Login
+        </button>
+      </span>
+    </div>
   );
 }

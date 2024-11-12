@@ -1,6 +1,11 @@
 import { useMediaQuery } from "react-responsive";
-import Yaarit from "../assets/Yaarit.svg";
+import Yaarit from "../public/YaarIt.svg";
+import tickicon from "../public/Group13.svg";
 import { useNavigate } from "react-router-dom";
+import git from "../public/git.svg";
+import insta from "../public/insta.svg";
+import linkedin from "../public/linkedin.svg";
+import rajesh from "../public/rajesh1.ico";
 
 function Description() {
   const isDesktopOrLaptop = useMediaQuery({
@@ -10,6 +15,30 @@ function Description() {
     query: "(min-width: 850px)",
   });
   const navigate = useNavigate();
+
+  const array = [
+    "Early access to events",
+    "Access to special events",
+    "Access to blogs",
+    "Doubts sessions",
+    "Chance to win goodies",
+  ];
+
+  const plans = [
+    { price: "Rs.700", duration: "6 Months" },
+    { price: "Rs.1000", duration: "1 Year" },
+    { price: "Rs.1400", duration: "2 Years" },
+  ];
+
+  const team = [
+    {
+      name: "Kanugu Rajesh",
+      insta: "",
+      git: "https://github.com/KanuguRajesh",
+      linkedin: "https://www.linkedin.com/in/rajesh-kanugu-aba8a3254/",
+      photo: rajesh,
+    },
+  ];
 
   return (
     <div>
@@ -103,6 +132,162 @@ function Description() {
               possibilities!
             </span>
           </div>
+        </div>
+      </div>
+      <div className="px-[30px] py-[100px]">
+        <div className="flex flex-col justify-center items-center">
+          <span
+            className={`font-black tracking-wider ${
+              isTablet
+                ? isDesktopOrLaptop
+                  ? "text-[50px]"
+                  : "text-[50px]"
+                : "text-[35px]"
+            }`}
+          >
+            Find The Plan That
+          </span>
+          <span
+            className={` font-black tracking-wider ${
+              isTablet
+                ? isDesktopOrLaptop
+                  ? "text-[50px]"
+                  : "text-[50px]"
+                : "text-[35px]"
+            }`}
+          >
+            Suits <span className="text-[#5258FF]">Your Needs</span>
+          </span>
+        </div>
+        <div className="flex flex-wrap justify-evenly gap-[20px] mt-[60px] items-center">
+          <ul className="mt-[20px] drop-shadow-xl flex flex-col items-center justify-center">
+            {array.map((obj, index) => {
+              return (
+                <div key={index} className="flex w-full">
+                  <img
+                    src={tickicon}
+                    alt=""
+                    className={`w-full h-auto ${
+                      isTablet
+                        ? isDesktopOrLaptop
+                          ? "max-w-[20px] mr-[5px]"
+                          : "max-w-[23px] mr-[5px]"
+                        : "max-w-[18px] mr-[5px]"
+                    }`}
+                  />
+                  <li
+                    className={`font-bold  ${
+                      isTablet
+                        ? isDesktopOrLaptop
+                          ? "text-[25px] "
+                          : "text-[23px] "
+                        : "text-[18px] "
+                    } mt-[10px]`}
+                  >
+                    {obj}
+                  </li>
+                </div>
+              );
+            })}
+          </ul>
+          {plans.map((obj, index) => {
+            return (
+              <div
+                key={index}
+                className={` flex flex-col rounded-xl text-[#15144B] text-center shadow-xl border-[2px] border-[#71B0FF] backdrop-blur py-[50px] px-[50px] ${
+                  isTablet
+                    ? isDesktopOrLaptop
+                      ? "mt-[50px] max-w-[400px] "
+                      : "mt-[40px] max-w-[380px] "
+                    : "mt-[25px] max-w-[340px] "
+                }`}
+              >
+                <span
+                  className={`font-black ${
+                    isTablet
+                      ? isDesktopOrLaptop
+                        ? "text-[60px] "
+                        : "text-[50px] "
+                      : "text-[30px] "
+                  } mt-[10px]`}
+                >
+                  {obj.price}
+                </span>
+                <span
+                  className={`font-bold ${
+                    isTablet
+                      ? isDesktopOrLaptop
+                        ? "text-[30px] "
+                        : "text-[25px] "
+                      : "text-[20px] "
+                  }`}
+                >
+                  - {obj.duration} -
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="px-[30px] py-[100px] ">
+        <div className="flex flex-col justify-center items-center">
+          <span
+            className={`font-black tracking-wider ${
+              isTablet
+                ? isDesktopOrLaptop
+                  ? "text-[50px]"
+                  : "text-[50px]"
+                : "text-[35px]"
+            }`}
+          >
+            Developed By
+          </span>
+        </div>
+        <div className="flex justify-evenly flex-wrap px-[40px] mt-[100px] gap-[60px] items-center">
+          {team.map((obj, index) => {
+            return (
+              <div
+                key={index}
+                className={` flex flex-col gap-[30px] justify-center items-center py-[30px] ${
+                  isTablet
+                    ? isDesktopOrLaptop
+                      ? " w-[350px]"
+                      : " w-[340px]"
+                    : " w-[320px]"
+                }`}
+              >
+                <img
+                  src={obj.photo}
+                  alt=""
+                  width={isTablet ? 200 : 150}
+                  className="rounded-[100px] shadow-[0px_7px_29px_0px_rgba(100,100,111,0.2)]"
+                />
+                <span
+                  className={`font-black tracking-wider ${
+                    isTablet
+                      ? isDesktopOrLaptop
+                        ? "text-[27px]"
+                        : "text-[27px]"
+                      : "text-[19px]"
+                  }`}
+                >
+                  {obj.name}
+                </span>
+                <div className="flex justify-center items-center gap-[20px]">
+                  <a href={obj.insta} target="_blank">
+                    <img src={insta} alt="" width={isTablet ? 30 : 20} />
+                  </a>
+                  <a href={obj.git} target="_blank">
+                    <img src={git} alt="" width={isTablet ? 30 : 20} />
+                  </a>
+                  <a href={obj.linkedin} target="_blank">
+                    {" "}
+                    <img src={linkedin} alt="" width={isTablet ? 30 : 20} />
+                  </a>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

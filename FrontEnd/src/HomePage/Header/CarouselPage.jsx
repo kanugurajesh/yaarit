@@ -1,13 +1,13 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-import LeftIcon from "../../assets/arrow_back_ios_FILL0_wght400_GRAD0_opsz24.svg";
-import RightIcon from "../../assets/arrow_forward_ios_FILL0_wght400_GRAD0_opsz24.svg";
-import Calender from "../../assets/Calender.svg";
+import LeftIcon from "../../public/arrow_back_ios_FILL0_wght400_GRAD0_opsz24.svg";
+import RightIcon from "../../public/arrow_forward_ios_FILL0_wght400_GRAD0_opsz24.svg";
+import Calender from "../../public/Calender.svg";
 import { useNavigate } from "react-router";
 import { useMediaQuery } from "react-responsive";
 import Axios from "axios";
-import { useState } from "react";
-import load from "../../assets/Double-Ring-0.8s-231px.svg";
+import { useEffect, useState } from "react";
+import load from "../../public/Double-Ring-0.8s-231px.svg";
 
 export default function CarouselPage({
   blog,
@@ -21,11 +21,16 @@ export default function CarouselPage({
 }) {
   const [loading, setLoading] = useState(false);
   const [moreDetails, setMoreDetails] = useState(false);
+  const [expired, setExpired] = useState(true);
 
   const navigate = useNavigate();
   function HandleClick() {
     navigate("/Home/Blog/" + blog.Domain, { state: { object: blog } });
   }
+
+  useEffect(() => {
+    if (Event) setExpired(new Date(Event.Expiry) < new Date());
+  }, [Event]);
 
   const isDesktopOrLaptopChange = useMediaQuery({
     query: "(min-width: 1090px)",
@@ -42,20 +47,26 @@ export default function CarouselPage({
     try {
       const token = sessionStorage.getItem("token");
       const response = await Axios.post(
-        "http://192.168.0.104:8000/events/eventRegistration",
+        process.env.IP + "/events/eventRegistration",
         {
-          AUTH_API_KEY: "AIyuhjerty9poiud9qwer4poijkhpoiubqXpkjm",
+          AUTH_API_KEY: process.env.AUTH_API_KEY,
           token: token,
           id: Event["_id"],
+        },
+        {
+          timeout: 3000000,
         }
       );
       if (response.data === "Mail sent") {
         alert("Check Registered Mail for further Information!");
         const res = await Axios.post(
-          "http://192.168.0.104:8000/events/eventsFetch",
+          process.env.IP + "/events/eventsFetch",
           {
-            AUTH_API_KEY: "AIyuhjerty9poiud9qwer4poijkhpoiubqXpkjm",
+            AUTH_API_KEY: process.env.AUTH_API_KEY,
             token: token,
+          },
+          {
+            timeout: 3000000,
           }
         );
         setUserEvents(new Set(res.data.data[0].Events));
@@ -72,7 +83,7 @@ export default function CarouselPage({
           className={`font-[700] ${
             isTablet
               ? isDesktopOrLaptop
-                ? "text-[80px]"
+                ? "text-[70px]"
                 : "text-[60px]"
               : "text-[40px]"
           } tracking-wider text-[#15144B]`}
@@ -83,7 +94,7 @@ export default function CarouselPage({
           className={`font-[700] ${
             isTablet
               ? isDesktopOrLaptop
-                ? "text-[80px]"
+                ? "text-[70px]"
                 : "text-[60px]"
               : "text-[40px]"
           } tracking-wider text-[#15144B]`}
@@ -94,7 +105,7 @@ export default function CarouselPage({
           className={`font-[700] ${
             isTablet
               ? isDesktopOrLaptop
-                ? "text-[80px]"
+                ? "text-[70px]"
                 : "text-[60px]"
               : "text-[40px]"
           } tracking-wider text-[#15144B]`}
@@ -108,13 +119,13 @@ export default function CarouselPage({
                 ? "text-[25px] mt-[30px]"
                 : "text-[18px] mt-[20px]"
               : "text-[15px] mt-[15px]"
-          } tracking-wider text-[#5F6A77]`}
+          } tracking-wide text-[#5F6A77]`}
         >
           All the latest blogs from our creative community.
         </span>
         <div>
           <button
-            className={`text-white font-black tracking-wider credentials-button  ${
+            className={`text-white font-black tracking-wide py-[6px] rounded-md credentials-button  ${
               isTablet
                 ? isDesktopOrLaptop
                   ? "text-[25px] px-[60px] mt-[30px]"
@@ -132,7 +143,7 @@ export default function CarouselPage({
       {isDesktopOrLaptopChange &&
         (renderNow ? (
           <div
-            className={` text-left grid rounded-2xl border-[2px] box-shadow-quote border-[#dfe4ffff] bg-[#e8eaf7] backdrop-blur px-[30px] py-[30px] ${
+            className={`text-left grid rounded-2xl border-[2px] box-shadow-quote border-[#dfe4ffff] bg-[#e8eaf7] backdrop-blur px-[30px] py-[30px] ${
               isTablet
                 ? isDesktopOrLaptop
                   ? " max-w-[400px]"
@@ -150,16 +161,16 @@ export default function CarouselPage({
               className={`text-[#606CFA] ${
                 isTablet
                   ? isDesktopOrLaptop
-                    ? "text-[25px]"
-                    : "text-[23px]"
+                    ? "text-[28px]"
+                    : "text-[25px]"
                   : "text-[20px]"
-              } tracking-wider font-[600] mt-[15px]`}
+              } tracking-wider font-black mt-[15px]`}
             >
               {blog.Domain}
             </span>
 
             <div
-              className={` mt-[15px] ${
+              className={`mt-[13px] ${
                 isTablet
                   ? isDesktopOrLaptop
                     ? " max-w-[400px]"
@@ -171,23 +182,23 @@ export default function CarouselPage({
                 className={`flex text-black ${
                   isTablet
                     ? isDesktopOrLaptop
-                      ? "text-[25px]"
-                      : "text-[20px]"
-                    : "text-[18px]"
-                } tracking-wider font-[600] max-w-[96ch] wrapping`}
+                      ? "text-[21px]"
+                      : "text-[18px]"
+                    : "text-[15px]"
+                } tracking-wider font-medium max-w-[96ch] wrapping`}
               >
                 {blog.Heading}
               </span>
             </div>
 
-            <div className="mt-[15px]">
+            <div className="mt-[20px]">
               <button
-                className={`text-white  font-black tracking-wider credentials-button ${
+                className={`text-white font-black py-[6px] rounded-md tracking-wide credentials-button ${
                   isTablet
                     ? isDesktopOrLaptop
-                      ? "px-[50px] text-[25px]"
+                      ? "px-[50px] text-[23px]"
                       : "px-[30px] text-[20px]"
-                    : "px-[50px] text-[25px]"
+                    : "px-[20px] text-[18px]"
                 }`}
                 onClick={() => {
                   HandleClick();
@@ -238,8 +249,8 @@ export default function CarouselPage({
             className={`grid rounded-2xl border-[2px] box-shadow-quote border-[#dfe4ffff] bg-[#e8eaf7] backdrop-blur px-[30px] py-[30px] ${
               isTablet
                 ? isDesktopOrLaptop
-                  ? " max-w-[440px]"
-                  : "max-w-[390px]"
+                  ? " max-w-[380px]"
+                  : "max-w-[350px]"
                 : "max-w-[220px]"
             }`}
           >
@@ -268,7 +279,7 @@ export default function CarouselPage({
                 >
                   {Event.Heading}
                 </span>
-                <div className="flex mt-[10px] items-center mt-[15px]">
+                <div className="flex items-center mt-[15px]">
                   <img
                     src={Calender}
                     alt=""
@@ -286,7 +297,7 @@ export default function CarouselPage({
                     {Event.Date}
                   </span>
                 </div>
-                <div className="mt-[15px] flex justify-between items-center">
+                <div className="mt-[20px] flex gap-[20px] items-center">
                   <button
                     className={`text-white font-bold flex items-center justify-center tracking-wider ${
                       isTablet
@@ -295,16 +306,20 @@ export default function CarouselPage({
                           : "text-[20px]"
                         : "text-[18px]"
                     } ${
-                      userEvents.has(Event["_id"])
+                      expired
+                        ? "credentials-button-disabled px-[30px]"
+                        : userEvents.has(Event["_id"])
                         ? "credentials-button-disabled"
-                        : "credentials-button"
+                        : "credentials-button py-[6px] rounded-md"
                     } px-[40px] `}
                     onClick={() => {
                       HandleRegister();
                     }}
                     disabled={userEvents.has(Event["_id"])}
                   >
-                    {userEvents.has(Event["_id"]) ? (
+                    {expired ? (
+                      "Completed"
+                    ) : userEvents.has(Event["_id"]) ? (
                       "Registered"
                     ) : loading ? (
                       <img
@@ -329,7 +344,7 @@ export default function CarouselPage({
                       setMoreDetails(true);
                     }}
                   >
-                    View Details
+                    Details
                   </button>
                 </div>
               </>
@@ -423,7 +438,7 @@ export default function CarouselPage({
           className={`font-[700] ${
             isTablet
               ? isDesktopOrLaptop
-                ? "text-[80px]"
+                ? "text-[70px]"
                 : "text-[60px]"
               : "text-[40px]"
           } tracking-wider text-[#15144B]`}
@@ -434,7 +449,7 @@ export default function CarouselPage({
           className={`font-[700] ${
             isTablet
               ? isDesktopOrLaptop
-                ? "text-[80px]"
+                ? "text-[70px]"
                 : "text-[60px]"
               : "text-[40px]"
           } tracking-wider text-[#15144B]`}
@@ -445,7 +460,7 @@ export default function CarouselPage({
           className={`font-[700] ${
             isTablet
               ? isDesktopOrLaptop
-                ? "text-[80px]"
+                ? "text-[70px]"
                 : "text-[60px]"
               : "text-[40px]"
           } tracking-wider text-[#15144B]`}
@@ -459,13 +474,13 @@ export default function CarouselPage({
                 ? "text-[25px] mt-[30px]"
                 : "text-[20px] mt-[20px]"
               : "text-[15px] mt-[15px]"
-          } tracking-wider text-[#5F6A77]`}
+          } tracking-wide text-[#5F6A77]`}
         >
           Life is an event. Make it memorable.
         </span>
         <div>
           <button
-            className={`text-white  font-black tracking-wider credentials-button  ${
+            className={`text-white py-[6px] rounded-md font-black tracking-wide credentials-button  ${
               isTablet
                 ? isDesktopOrLaptop
                   ? "text-[25px] px-[60px] mt-[30px]"
@@ -486,7 +501,7 @@ export default function CarouselPage({
   return (
     <div
       className={`rounded-2xl border-[2px] box-shadow-quote border-[#dfe4ffff] bg-[#dfe4ff4d] backdrop-blur px-[20px] py-[100px] ${
-        isTablet ? "py-[70px]" : "py-[100px] h-[70vh]"
+        isTablet ? "py-[70px]" : "py-[100px] "
       } `}
     >
       <Carousel
@@ -495,7 +510,6 @@ export default function CarouselPage({
         interval={5000}
         showStatus={false}
         showIndicators={false}
-        showArrows={isTablet}
         showThumbs={false}
         renderArrowPrev={(clickHandler, hasPrev) => {
           return (

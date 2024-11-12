@@ -15,19 +15,37 @@ export default function Home({
 }) {
   useEffect(() => {
     if (!renderNow)
-      Axios.post("http://192.168.0.104:8000/blogs/blogsList", {
-        AUTH_API_KEY: "AIyuhjerty9poiud9qwer4poijkhpoiubqXpkjm",
-      }).then((response) => {
+      Axios.post(
+        process.env.IP + "/blogs/blogsList",
+        {
+          AUTH_API_KEY: process.env.AUTH_API_KEY,
+        },
+        {
+          timeout: 3000000,
+        }
+      ).then((response) => {
         setBlogs(response.data.data);
-        Axios.post("http://192.168.0.104:8000/events/eventsList", {
-          AUTH_API_KEY: "AIyuhjerty9poiud9qwer4poijkhpoiubqXpkjm",
-        }).then((response) => {
+        Axios.post(
+          process.env.IP + "/events/eventsList",
+          {
+            AUTH_API_KEY: process.env.AUTH_API_KEY,
+          },
+          {
+            timeout: 3000000,
+          }
+        ).then((response) => {
           setEvents(response.data.data);
           const token = sessionStorage.getItem("token");
-          Axios.post("http://192.168.0.104:8000/events/eventsFetch", {
-            AUTH_API_KEY: "AIyuhjerty9poiud9qwer4poijkhpoiubqXpkjm",
-            token: token,
-          }).then((response) => {
+          Axios.post(
+            process.env.IP + "/events/eventsFetch",
+            {
+              AUTH_API_KEY: process.env.AUTH_API_KEY,
+              token: token,
+            },
+            {
+              timeout: 3000000,
+            }
+          ).then((response) => {
             setUserEvents(new Set(response.data.data[0].Events));
             setRenderNow(true);
           });
@@ -41,28 +59,26 @@ export default function Home({
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }
   return (
-    <>
-      <>
-        <Header
-          blog={blogs[0]}
-          Event={Events[0]}
-          blogScroll={blogScroll}
-          eventScroll={eventScroll}
-          scrollHandler={scrollHandler}
-          userEvents={userEvents}
-          setUserEvents={setUserEvents}
-          renderNow={renderNow}
-        />
-        <Body
-          blogs={blogs}
-          Events={Events}
-          blogScroll={blogScroll}
-          eventScroll={eventScroll}
-          userEvents={userEvents}
-          setUserEvents={setUserEvents}
-          renderNow={renderNow}
-        />
-      </>
-    </>
+    <div className="">
+      <Header
+        blog={blogs[0]}
+        Event={Events[0]}
+        blogScroll={blogScroll}
+        eventScroll={eventScroll}
+        scrollHandler={scrollHandler}
+        userEvents={userEvents}
+        setUserEvents={setUserEvents}
+        renderNow={renderNow}
+      />
+      <Body
+        blogs={blogs}
+        Events={Events}
+        blogScroll={blogScroll}
+        eventScroll={eventScroll}
+        userEvents={userEvents}
+        setUserEvents={setUserEvents}
+        renderNow={renderNow}
+      />
+    </div>
   );
 }

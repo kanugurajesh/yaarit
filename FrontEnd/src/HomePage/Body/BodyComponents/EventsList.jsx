@@ -1,6 +1,7 @@
 import EventPanel from "./EventPanel";
 import LoadingCard from "./LoadingCard";
 import { useNavigate } from "react-router-dom";
+import forwardIcon from "../../../public/arrow_forward_FILL0_wght400_GRAD0_opsz24.svg";
 
 export default function EventsList({
   Events,
@@ -13,15 +14,10 @@ export default function EventsList({
 }) {
   const navigate = useNavigate();
   return (
-    <div ref={eventScroll}>
+    <div className="my-[80px]">
       <div
-        className={`mt-[50px] flex flex-wrap items-center ${
-          isTablet
-            ? isDesktopOrLaptop
-              ? "justify-between"
-              : "justify-around"
-            : "justify-evenly"
-        }`}
+        ref={eventScroll}
+        className={`mt-[50px] flex flex-wrap items-center justify-center`}
       >
         <span
           className={`font-[700] ${
@@ -35,24 +31,25 @@ export default function EventsList({
           Events
         </span>
         <button
-          className={`text-white ${
-            isTablet
-              ? isDesktopOrLaptop
-                ? "text-[20px] px-[50px]"
-                : "text-[20px] px-[40px]"
-              : "text-[18px] px-[23px]"
-          }  font-black tracking-wider credentials-button `}
           onClick={() => {
             navigate("/Home/EventPage");
           }}
+          className={`${
+            isTablet
+              ? isDesktopOrLaptop
+                ? "w-[40px] h-[40px]"
+                : "w-[35px] h-[35px]"
+              : "w-[30px] h-[30px]"
+          }`}
         >
-          More
+          <img src={forwardIcon} alt="" className="w-full h-full" />
         </button>
+        <div></div>
       </div>
-      <div className="flex flex-wrap justify-around ">
+      <div className="flex flex-wrap my-[50px] gap-y-[40px] gap-x-[20px] justify-evenly ">
         {renderNow ? (
           Events.map((obj, index) => {
-            if (index < (isTablet ? (isDesktopOrLaptop ? 4 : 3) : 2))
+            if (index < (isTablet ? 3 : 2))
               return (
                 <div key={obj + index}>
                   <EventPanel
@@ -76,12 +73,6 @@ export default function EventsList({
               isDesktopOrLaptop={isDesktopOrLaptop}
             />
             {isTablet && (
-              <LoadingCard
-                isTablet={isTablet}
-                isDesktopOrLaptop={isDesktopOrLaptop}
-              />
-            )}
-            {isDesktopOrLaptop && (
               <LoadingCard
                 isTablet={isTablet}
                 isDesktopOrLaptop={isDesktopOrLaptop}

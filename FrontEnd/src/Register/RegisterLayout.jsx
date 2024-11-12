@@ -13,6 +13,7 @@ export default function RegisterLayout({
   setBranch,
   setPlan,
   checkRazorpay,
+  navigate,
 }) {
   /* NOTATION LOGIC */
   //  0 - has not changed
@@ -59,7 +60,7 @@ export default function RegisterLayout({
   }
 
   return (
-    <>
+    <div className="flex flex-col w-fit px-[50px] ">
       <span
         className={"text-[#15144B] text-[2.2em] font-black tracking-wider "}
       >
@@ -68,10 +69,8 @@ export default function RegisterLayout({
       <span className=" text-[#778391] text-[1.2em] font-[500] tracking-wider">
         {wrongDetails ? "Get your ticks green!" : "Enter your details"}
       </span>
-      <br />
-      <br />
       <form className="grid" onSubmit={(e) => checkRules(e)}>
-        <span className="text-[#15144B] text-[1.2em] font-black tracking-wider">
+        <span className="text-[#15144B] text-[1.2em] mt-[20px] font-black tracking-wider">
           Full Name{" "}
           {fnameCorrect === 1 ? (
             <span className="text-[#00FF00]">&#x2713;</span>
@@ -94,8 +93,7 @@ export default function RegisterLayout({
           }}
           required
         ></input>
-        <br />
-        <span className="text-[#15144B] text-[1.2em] font-black tracking-wider">
+        <span className="text-[#15144B] text-[1.2em] mt-[20px] font-black tracking-wider">
           Email{" "}
           {rEmailCorrect === 1 ? (
             <span className="text-[#00FF00]">&#x2713;</span>
@@ -114,8 +112,7 @@ export default function RegisterLayout({
           }}
           required
         ></input>
-        <br />
-        <span className="text-[#15144B] text-[1.2em] font-black tracking-wider">
+        <span className="text-[#15144B] text-[1.2em] mt-[20px] font-black tracking-wider">
           Phone number{" "}
           {phnoCorrect === 1 ? (
             <span className="text-[#00FF00]">&#x2713;</span>
@@ -140,8 +137,7 @@ export default function RegisterLayout({
           }}
           required
         ></input>
-        <br />
-        <span className="text-[#15144B] text-[1.2em] font-black tracking-wider">
+        <span className="text-[#15144B] text-[1.2em] mt-[20px] font-black tracking-wider">
           Password{" "}
           {rPassCorrect === 1 ? (
             <span className="text-[#00FF00]">&#x2713;</span>
@@ -171,8 +167,7 @@ export default function RegisterLayout({
           }}
           required
         ></input>
-        <br />
-        <span className="text-[#15144B] text-[1.2em] font-black tracking-wider">
+        <span className="text-[#15144B] text-[1.2em] font-black mt-[20px] tracking-wider">
           Confirm password{" "}
           {passMatchCorrect === 1 ? (
             <span className="text-[#00FF00]">&#x2713;</span>
@@ -193,61 +188,65 @@ export default function RegisterLayout({
           }}
           required
         ></input>
-        <br />
-        <div>
-          <span className="text-[#15144B] text-[1.2em] font-black tracking-wider">
-            Year
-          </span>
-          <select
-            name="year"
-            id="year"
-            className="credentials-input ml-[10px]"
-            required
-            onChange={(e) => setYear(e.target.value)}
-          >
-            <option value=""></option>
-            <option value="1">First Year</option>
-            <option value="2">Second Year</option>
-            <option value="3">Thrid year</option>
-            <option value="4">Forth year</option>
-          </select>
+        <div className="flex justify-evenly mt-[20px] items-center">
+          <div>
+            <span className="text-[#15144B] text-[1.2em] font-black mt-[20px] tracking-wider">
+              Year
+            </span>
+            <select
+              name="year"
+              id="year"
+              className="credentials-input ml-[10px]"
+              required
+              onChange={(e) => setYear(e.target.value)}
+            >
+              <option value=""></option>
+              <option value="1">First Year</option>
+              <option value="2">Second Year</option>
+              <option value="3">Thrid year</option>
+              <option value="4">Forth year</option>
+            </select>
+          </div>
 
-          <span className="text-[#15144B] text-[1.2em] font-black tracking-wider ml-[15px]">
-            Branch
-          </span>
-          <select
-            name="branch"
-            id="branch"
-            className="credentials-input ml-[10px]"
-            required
-            onChange={(e) => {
-              setBranch(e.target.value);
-            }}
-          >
-            <option value=""></option>
-            <option value="cse">CSE</option>
-            <option value="it">IT</option>
-            <option value="ece">ECE</option>
-            <option value="eee">EEE</option>
-            <option value="civil">CIVIL</option>
-            <option value="mech">MECH</option>
-            <option value="auto">AUTO</option>
-          </select>
+          <div>
+            <span className="text-[#15144B] text-[1.2em] font-black mt-[20px] tracking-wider ml-[15px]">
+              Branch
+            </span>
+            <select
+              name="branch"
+              id="branch"
+              className="credentials-input ml-[10px]"
+              required
+              onChange={(e) => {
+                setBranch(e.target.value);
+              }}
+            >
+              <option value=""></option>
+              <option value="cse">CSE</option>
+              <option value="it">IT</option>
+              <option value="ece">ECE</option>
+              <option value="eee">EEE</option>
+              <option value="civil">CIVIL</option>
+              <option value="mech">MECH</option>
+              <option value="auto">AUTO</option>
+            </select>
+          </div>
         </div>
-        <br />
-        <div className="flex justify-between relative">
+        <div className="flex justify-between gap-[20px] items-center mt-[20px] relative">
           <span
             className={"text-[#15144B] text-[1.5em] font-black tracking-wider "}
           >
             Select your plan
           </span>
-          <span className="font-[600]" id="view-details">
-            view details &#63;
+          <span
+            className="font-[600] select-none cursor-pointer"
+            id="view-details"
+          >
+            Details&#63;
           </span>
-          <div className="popup">Refer MainPage for Plan Details</div>
+          <div className="popup">Refer mainpage for plan details</div>
         </div>
-        <br />
-        <div>
+        <div className="mt-[20px]">
           <input
             type="radio"
             id="1/2"
@@ -258,7 +257,7 @@ export default function RegisterLayout({
               setPlan(e.currentTarget.value);
             }}
           />
-          <span className=" text-[#778391] text-[1.2em] font-[500] tracking-wider ml-[20px]">
+          <span className=" text-[#778391] text-[1.2em] font-[500]  tracking-wider ml-[20px]">
             6 months
           </span>
         </div>
@@ -272,7 +271,7 @@ export default function RegisterLayout({
               setPlan(e.currentTarget.value);
             }}
           />
-          <span className=" text-[#778391] text-[1.2em] font-[500] tracking-wider ml-[20px]">
+          <span className=" text-[#778391] text-[1.2em] font-[500]  tracking-wider ml-[20px]">
             1 year
           </span>
         </div>
@@ -286,20 +285,43 @@ export default function RegisterLayout({
               setPlan(e.currentTarget.value);
             }}
           />
-          <span className=" text-[#778391] text-[1.2em] font-[500] tracking-wider ml-[20px]">
+          <span className=" text-[#778391] text-[1.2em] font-[500]  tracking-wider ml-[20px]">
             2 years
           </span>
         </div>
-        <br />
         <input
+          disabled={
+            fnameCorrect !== 1 ||
+            rEmailCorrect !== 1 ||
+            phnoCorrect !== 1 ||
+            rPassCorrect !== 1 ||
+            passMatchCorrect !== 1
+          }
           type="submit"
           id="register"
           value="Register"
-          className="text-white text-[1.5em] font-black tracking-wider credentials-button "
+          className={`text-white mt-[20px] text-[1.5em] font-black tracking-wider ${
+            fnameCorrect !== 1 ||
+            rEmailCorrect !== 1 ||
+            phnoCorrect !== 1 ||
+            rPassCorrect !== 1 ||
+            passMatchCorrect !== 1
+              ? "credentials-button-disabled cursor-not-allowed"
+              : "credentials-button py-[10px] rounded-md cursor-pointer"
+          } `}
         ></input>
-        <br />
-        <br />
       </form>
-    </>
+      <span className="text-center my-[30px]">
+        Already have an account?
+        <button
+          className="text-[#5258FF] font-black ml-[5px]"
+          onClick={() => {
+            navigate("/Login", { replace: true });
+          }}
+        >
+          Login
+        </button>
+      </span>
+    </div>
   );
 }

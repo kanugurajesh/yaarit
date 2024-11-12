@@ -1,12 +1,13 @@
 import { useMediaQuery } from "react-responsive";
 import Quote from "../Quote.jsx";
 import RegisterLayout from "./RegisterLayout.jsx";
-import frame from "../assets/Frame.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Axios from "axios";
 import RegisterCode from "./RegisterCode.jsx";
+import { useNavigate } from "react-router";
 
 function Register() {
+  const navigate = useNavigate();
   const [fullName, setFullName] = useState("");
   const [rEmail, setREmail] = useState("");
   const [phNo, setPhoneNo] = useState(0);
@@ -17,21 +18,27 @@ function Register() {
   const [code, setCode] = useState(false);
 
   const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-width: 1090px)",
+    query: "(min-width: 1100px)",
   });
 
   async function checkRazorpay(event) {
     try {
-      await Axios.post("http://localhost:8000/register/sendMail", {
-        username: fullName,
-        email: rEmail,
-        phno: phNo,
-        password: rPass,
-        year: year,
-        branch: branch,
-        plan: plan,
-        AUTH_API_KEY: "AIyuhjerty9poiud9qwer4poijkhpoiubqXpkjm",
-      });
+      await Axios.post(
+        process.env.IP + "/register/sendMail",
+        {
+          username: fullName,
+          email: rEmail,
+          phno: phNo,
+          password: rPass,
+          year: year,
+          branch: branch,
+          plan: plan,
+          AUTH_API_KEY: process.env.AUTH_API_KEY,
+        },
+        {
+          timeout: 3000000,
+        }
+      );
       setCode(true);
     } catch (error) {
       console.error(error);
@@ -40,14 +47,19 @@ function Register() {
 
   return (
     <>
-      <div className={`grid ${isDesktopOrLaptop ? "grid-cols-2" : ""}`}>
+      <div
+        className={`grid shadow-xl h-screen rounded-xl ${
+          isDesktopOrLaptop ? "grid-cols-2" : ""
+        }`}
+      >
         {isDesktopOrLaptop && <Quote />}
-        <div className={`grid place-content-center h-screen relative `}>
-          {!isDesktopOrLaptop && (
-            <img src={frame} alt="" className="absolute top-0 left-0" />
-          )}
-          <div className="grid mx-[30px] pt-[100px] overflow-y-scroll no-scrollbar">
-            {!code ? (
+        <div
+          className={` flex justify-center h-screen relative ${
+            code && "items-center"
+          } bg-white overflow-y-auto no-scrollbar`}
+        >
+          {!code ? (
+            <div className="pt-[100px] pb-[30px]">
               <RegisterLayout
                 fullName={fullName}
                 setFullName={setFullName}
@@ -61,11 +73,12 @@ function Register() {
                 setBranch={setBranch}
                 setPlan={setPlan}
                 checkRazorpay={checkRazorpay}
+                navigate={navigate}
               />
-            ) : (
-              <RegisterCode Email={rEmail} Password={rPass} />
-            )}
-          </div>
+            </div>
+          ) : (
+            <RegisterCode Email={rEmail} Password={rPass} />
+          )}
         </div>
       </div>
     </>

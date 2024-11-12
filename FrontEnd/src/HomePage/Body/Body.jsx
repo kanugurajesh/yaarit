@@ -26,8 +26,8 @@ export default function Body({
       className={
         isTablet
           ? isDesktopOrLaptop
-            ? "py-[50px] px-[80px]"
-            : "py-[40px] px-[60px]"
+            ? " py-[50px] px-[80px]"
+            : "  py-[40px] px-[60px]"
           : " py-[30px] px-[30px]"
       }
     >

@@ -1,4 +1,4 @@
-import BackIcon from "../../assets/arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
+import BackIcon from "../../public/arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -28,15 +28,27 @@ export default function EventPage({
     window.history.scrollRestoration = "manual";
     eventPage.current?.scrollIntoView();
     if (!renderNowEvents) {
-      Axios.post("http://192.168.0.104:8000/events/eventsPage", {
-        AUTH_API_KEY: "AIyuhjerty9poiud9qwer4poijkhpoiubqXpkjm",
-      }).then((response) => {
+      Axios.post(
+        process.env.IP + "/events/eventsPage",
+        {
+          AUTH_API_KEY: process.env.AUTH_API_KEY,
+        },
+        {
+          timeout: 3000000,
+        }
+      ).then((response) => {
         setEvents(response.data.data);
         const token = sessionStorage.getItem("token");
-        Axios.post("http://192.168.0.104:8000/events/eventsFetch", {
-          AUTH_API_KEY: "AIyuhjerty9poiud9qwer4poijkhpoiubqXpkjm",
-          token: token,
-        }).then((response) => {
+        Axios.post(
+          process.env.IP + "/events/eventsFetch",
+          {
+            AUTH_API_KEY: process.env.AUTH_API_KEY,
+            token: token,
+          },
+          {
+            timeout: 3000000,
+          }
+        ).then((response) => {
           setUserEvents(new Set(response.data.data[0].Events));
           setRenderNowEvents(true);
         });
@@ -46,12 +58,12 @@ export default function EventPage({
   return (
     <div ref={eventPage} className="relative">
       <div
-        className={`blog-bg flex justify-evenly items-center ${
+        className={`bg-gray-100 flex gap-[30px] items-center ${
           isTablet
             ? isDesktopOrLaptop
-              ? "px-[100px] py-[200px]"
-              : "px-[30px] py-[100px]"
-            : "px-[5px] py-[70px]"
+              ? "px-[200px] py-[150px]"
+              : "px-[100px] py-[100px]"
+            : "px-[70px] py-[70px]"
         }`}
       >
         <img
@@ -65,25 +77,24 @@ export default function EventPage({
           }}
         />
         <span
-          className={`font-[700] ${
+          className={`font-[700] cut-out ${
             isTablet
               ? isDesktopOrLaptop
                 ? "text-[60px]"
                 : "text-[50px]"
               : "text-[40px]"
-          } tracking-wider text-[#15144B]`}
+          } tracking-wider `}
         >
-          EVENTS
+          Events
         </span>
-        <div></div>
       </div>
       <div
-        className={`absolute w-full flex flex-wrap justify-evenly items-center ${
+        className={`absolute w-full flex flex-wrap justify-evenly overflow-y-auto no-scrollbar py-[60px] gap-[50px] ${
           isTablet
             ? isDesktopOrLaptop
-              ? "top-[350px] "
-              : "top-[230px] "
-            : "top-[140px] "
+              ? "top-[250px] "
+              : "top-[170px] "
+            : "top-[110px] "
         }`}
       >
         {renderNowEvents ? (

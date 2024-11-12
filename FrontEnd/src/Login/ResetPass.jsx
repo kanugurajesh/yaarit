@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ArrowLeft from "../assets/chevron_left_FILL0_wght400_GRAD0_opsz24.svg";
+import ArrowLeft from "../public/arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
 import Axios from "axios";
 
 export default function Resetpass({ setForgotPass, email }) {
@@ -12,11 +12,14 @@ export default function Resetpass({ setForgotPass, email }) {
     try {
       if (same === 1) {
         const response = await Axios.post(
-          "http://localhost:8000/reset/ChangePassword",
+          process.env.IP + "/reset/ChangePassword",
           {
-            AUTH_API_KEY: "AIyuhjerty9poiud9qwer4poijkhpoiubqXpkjm",
+            AUTH_API_KEY: process.env.AUTH_API_KEY,
             email: email,
             password: pass,
+          },
+          {
+            timeout: 3000000,
           }
         );
         setForgotPass(false);
@@ -37,7 +40,7 @@ export default function Resetpass({ setForgotPass, email }) {
       <span
         className={"text-[#15144B] text-[2.2em] font-black tracking-wider "}
       >
-        New Password &#128274;
+        New Password
       </span>
       <span className=" text-[#778391] text-[1.2em] font-[500] tracking-wider">
         Enter your New Password
@@ -83,7 +86,7 @@ export default function Resetpass({ setForgotPass, email }) {
         ></input>
         <br />
         <span className="text-[#15144B] text-[1.2em] font-black tracking-wider">
-          Re-enter new password{" "}
+          Confirm password{" "}
           {same === 1 ? (
             <span className="text-[#00FF00]">&#x2713;</span>
           ) : (
@@ -106,7 +109,7 @@ export default function Resetpass({ setForgotPass, email }) {
           type="submit"
           id="resetpass"
           value="Reset Pass"
-          className="text-white text-[1.5em] font-black tracking-wider credentials-button"
+          className="text-white text-[1.5em] font-black tracking-wider py-[10px] rounded-md cursor-pointer credentials-button"
         ></input>
       </form>
     </>

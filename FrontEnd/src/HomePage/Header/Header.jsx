@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import Yaarit from "../../assets/Yaarit.svg";
+import Yaarit from "../../public/YaarIt.svg";
 import CarouselPage from "./CarouselPage";
 import { useMediaQuery } from "react-responsive";
 
@@ -40,6 +40,9 @@ export default function Header({
           <button
             id="profile"
             className="font-black pt-[6px] text-[20px] tracking-wide"
+            onClick={() => {
+              navigate("/Home/Profile");
+            }}
           >
             Profile
           </button>
