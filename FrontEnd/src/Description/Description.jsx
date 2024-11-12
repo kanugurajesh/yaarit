@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import git from "../public/git.svg";
 import insta from "../public/insta.svg";
 import linkedin from "../public/linkedin.svg";
-import rajesh from "../public/rajesh1.ico";
+import rajesh from "../public/rajesh-kanugu.jpg";
 
 function Description() {
   const isDesktopOrLaptop = useMediaQuery({
